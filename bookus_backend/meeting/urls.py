@@ -1,0 +1,30 @@
+"""
+URL configuration for config project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from . import views
+from django.urls import path, include
+
+app_name="meeting"
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('create/',views.create, name='create'),
+    path('detail/<int:meeting_id>/',views.detail_meeting,name='detail'),
+    path('join/<int:meeting_id>/',views.join, name='join'),
+    path('withdraw/<int:meeting_id>/',views.withdraw, name='withdraw'),
+    path('detail/<int:meeting_id>/contents/', include('contents.urls')),
+    path('naver/search/', views.search_place, name='naver-search'),
+    path('my/', views.my_meeting_list, name='my-meeting-list'),
+]
